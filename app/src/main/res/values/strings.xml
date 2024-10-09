@@ -5,4 +5,10 @@
     <string name="subtitle">Подзаголовок</string>
     <string name="back">Назад</string>
     <string name="next">Далее</string>
+    <string name="input_email">Введите Email</string>
+    <string name="input_password">Введите пароль</string>
+    <string name="err_input_data">Ошибка: некорректные данные</string>
+    <string name="sign_in">Войти</string>
+    <string name="reg_in">Еще нет аккаунта? Зарегистрироваться</string>
+    <string name="in_develop">В разработке</string>
 </resources>
