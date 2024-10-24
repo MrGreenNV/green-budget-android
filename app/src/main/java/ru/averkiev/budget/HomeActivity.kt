@@ -18,10 +18,10 @@ class HomeActivity : AppCompatActivity() {
 
         // Фиктивные данные для чатов
         val chatList = listOf(
-            Chat("Иван Иванов", R.drawable.profile1, "Привет, как дела?", "12:00"),
-            Chat("Ольга Петрова", R.drawable.profile2, "Завтра встретимся?", "12:05"),
-            Chat("Мария Смирнова", R.drawable.profile3, "Отправила отчет", "12:15"),
-            Chat("Алексей Сидоров", R.drawable.profile4, "Спасибо!", "12:30")
+            Chat("Тони", R.drawable.profile_1, "Привет, когда рожать собираетесь?", "12:00"),
+            Chat("Стас", R.drawable.profile_2, "Как проходит твой зачёт?", "12:05"),
+            Chat("Валера", R.drawable.profile_3, "Спасибо, за шоколадку!", "12:15"),
+            Chat("Маша", R.drawable.profile_4, "Маш, ты утюг выключила?", "12:30")
         )
 
         // Установка адаптера

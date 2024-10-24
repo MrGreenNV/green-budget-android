@@ -11,19 +11,19 @@ import androidx.appcompat.app.AppCompatActivity
 class OnboardActivity : AppCompatActivity() {
 
     private val images = arrayOf(
-        R.drawable.onboard_image1,
-        R.drawable.onboard_image2,
-        R.drawable.onboard_image3,
+        R.drawable.onboard_image_1,
+        R.drawable.onboard_image_2,
+        R.drawable.onboard_image_3
     )
     private val titles = arrayOf(
         "Welcome!",
-        "Fun_1",
-        "Fun_2"
+        "Welcome!",
+        "Welcome!"
     )
     private val subtitles = arrayOf(
-        "desc app",
-        "desc fun_1",
-        "desc fun_2"
+        "не это..",
+        "и не это..",
+        "и даже не это.."
     )
 
     private var currentIndex = 0
@@ -61,6 +61,14 @@ class OnboardActivity : AppCompatActivity() {
     }
 
     private fun updateContent(imageView: ImageView, titleView: TextView, subtitleView: TextView) {
+//        val id: Int
+//        if (currentIndex == 0)
+//            id = this.resources.getIdentifier("onboard_image_1", "drawable", packageName)
+//        else if (currentIndex == 1)
+//            id = this.resources.getIdentifier("onboard_image_2", "drawable", packageName)
+//        else
+//            id = this.resources.getIdentifier("onboard_image_3", "drawable", this.packageName)
+
         imageView.setImageResource(images[currentIndex])
         titleView.text = titles[currentIndex]
         subtitleView.text = subtitles[currentIndex]

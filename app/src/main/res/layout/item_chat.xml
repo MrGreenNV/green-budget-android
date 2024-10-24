@@ -7,55 +7,61 @@
     android:padding="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/ivSenderProfile"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_launcher_foreground"
-            android:scaleType="centerCrop"
-            android:layout_marginBottom="8dp"
             android:contentDescription="Профиль"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_foreground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
-        <TextView
-            android:id="@+id/tvLastMessage"
-            android:layout_width="0dp"
-            android:layout_height="28dp"
-            android:layout_below="@id/tvSenderName"
-            android:layout_toEndOf="@id/ivSenderProfile"
-            app:layout_constraintLeft_toRightOf="@id/ivSenderProfile"
-            android:text="Последнее сообщение"
-            android:textSize="14sp"
-            tools:layout_editor_absoluteX="66dp"
-            tools:layout_editor_absoluteY="30dp" />
 
         <TextView
             android:id="@+id/tvSenderName"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="22dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
             android:layout_toEndOf="@id/ivSenderProfile"
-            app:layout_constraintTop_toBottomOf="@id/ivSenderProfile"
             android:text="Имя отправителя"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="66dp"
-            tools:layout_editor_absoluteY="4dp" />
+            app:layout_constraintStart_toEndOf="@+id/ivSenderProfile"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/tvLastMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_below="@id/tvSenderName"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            android:layout_toEndOf="@id/ivSenderProfile"
+            android:text="Последнее сообщение"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/ivSenderProfile"
+            app:layout_constraintTop_toBottomOf="@+id/tvSenderName" />
 
         <TextView
             android:id="@+id/tvTimeSent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
             android:text="12:00"
             android:textSize="12sp"
-            tools:layout_editor_absoluteX="355dp"
-            tools:layout_editor_absoluteY="4dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
