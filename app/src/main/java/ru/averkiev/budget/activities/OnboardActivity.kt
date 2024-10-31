@@ -2,14 +2,18 @@ package ru.averkiev.budget.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import ru.averkiev.budget.R
 
 class OnboardActivity : AppCompatActivity() {
+
+    companion object {
+        const val TAG_NAME = "OnboardActivity"
+    }
 
     private val images = arrayOf(
         R.drawable.onboard_image_1,
@@ -31,7 +35,7 @@ class OnboardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        Log.d(TAG_NAME, "started 'onCreate'")
         setContentView(R.layout.activity_onboard)
 
         val onboardImage: ImageView = findViewById(R.id.onboardImage)
@@ -61,15 +65,32 @@ class OnboardActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateContent(imageView: ImageView, titleView: TextView, subtitleView: TextView) {
-//        val id: Int
-//        if (currentIndex == 0)
-//            id = this.resources.getIdentifier("onboard_image_1", "drawable", packageName)
-//        else if (currentIndex == 1)
-//            id = this.resources.getIdentifier("onboard_image_2", "drawable", packageName)
-//        else
-//            id = this.resources.getIdentifier("onboard_image_3", "drawable", this.packageName)
+    override fun onStart() {
+        Log.d(TAG_NAME, "started 'onStart'")
+        super.onStart()
+    }
 
+    override fun onResume() {
+        Log.d(TAG_NAME, "started 'onResume'")
+        super.onResume()
+    }
+
+    override fun onPause() {
+        Log.d(TAG_NAME, "started 'onPause'")
+        super.onPause()
+    }
+
+    override fun onStop() {
+        Log.d(TAG_NAME, "started 'onStop'")
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        Log.d(TAG_NAME, "started 'onDestroy'")
+        super.onDestroy()
+    }
+
+    private fun updateContent(imageView: ImageView, titleView: TextView, subtitleView: TextView) {
         imageView.setImageResource(images[currentIndex])
         titleView.text = titles[currentIndex]
         subtitleView.text = subtitles[currentIndex]
