@@ -46,7 +46,6 @@ class SignUpFragment : Fragment() {
                     "Заполнены не все данные!",
                     Toast.LENGTH_SHORT
                 ).show()
-
             else if (!isValidEmail(email) || !isValidPassword(pass))
 
                 Toast.makeText(
@@ -54,7 +53,6 @@ class SignUpFragment : Fragment() {
                     "Данные не корректны!",
                     Toast.LENGTH_SHORT
                 ).show()
-
             else {
 
                 val user = User(login, email, pass)

@@ -6,7 +6,8 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import ru.averkiev.budget.models.User
 
-class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) : SQLiteOpenHelper(context, "app_db", factory, 1) {
+class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
+    SQLiteOpenHelper(context, "app_db", factory, 1) {
     override fun onCreate(db: SQLiteDatabase?) {
         val query = "CREATE TABLE users (id INT PRIMARY KEY, login TEXT, email TEXT, pass TEXT)"
         db!!.execSQL(query)
@@ -29,9 +30,10 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) : SQLit
         db.close()
     }
 
-    fun existUser(email: String, pass: String) : Boolean {
+    fun existUser(email: String, pass: String): Boolean {
         val db = this.readableDatabase
-        val result = db.rawQuery("SELECT * FROM users WHERE email = '$email' AND pass = '$pass'", null)
+        val result =
+            db.rawQuery("SELECT * FROM users WHERE email = '$email' AND pass = '$pass'", null)
         return result.moveToFirst()
     }
 }
