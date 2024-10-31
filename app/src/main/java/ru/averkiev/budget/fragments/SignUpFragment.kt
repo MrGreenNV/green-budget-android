@@ -1,31 +1,37 @@
-package ru.averkiev.budget.activities
+package ru.averkiev.budget.fragments
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import ru.averkiev.budget.R
+import ru.averkiev.budget.activities.MainActivity
 import ru.averkiev.budget.models.User
 import ru.averkiev.budget.utils.DBHelper
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpFragment : Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_sign_up, container, false)
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val btnBack: Button = findViewById(R.id.btnBack)
-        val btnReg: Button = findViewById(R.id.button_reg)
-        val loginEditText: EditText = findViewById(R.id.user_login)
-        val emailEditText: EditText = findViewById(R.id.user_email)
-        val passEditText: EditText = findViewById(R.id.user_pass)
+        val btnBack: Button = view.findViewById(R.id.btnBack)
+        val btnReg: Button = view.findViewById(R.id.button_reg)
+        val loginEditText: EditText = view.findViewById(R.id.user_login)
+        val emailEditText: EditText = view.findViewById(R.id.user_email)
+        val passEditText: EditText = view.findViewById(R.id.user_pass)
 
         btnBack.setOnClickListener {
-            intent = Intent(this, SignInActivity::class.java)
-            startActivity(intent)
-            finish()
+            (activity as? MainActivity)?.navigateToSignInFragment()
         }
 
         btnReg.setOnClickListener {
@@ -36,7 +42,7 @@ class SignUpActivity : AppCompatActivity() {
             if (login.isEmpty() || email.isEmpty() || pass.isEmpty())
 
                 Toast.makeText(
-                    this,
+                    requireContext(),
                     "Заполнены не все данные!",
                     Toast.LENGTH_SHORT
                 ).show()
@@ -44,7 +50,7 @@ class SignUpActivity : AppCompatActivity() {
             else if (!isValidEmail(email) || !isValidPassword(pass))
 
                 Toast.makeText(
-                    this,
+                    requireContext(),
                     "Данные не корректны!",
                     Toast.LENGTH_SHORT
                 ).show()
@@ -52,29 +58,20 @@ class SignUpActivity : AppCompatActivity() {
             else {
 
                 val user = User(login, email, pass)
-                val db = DBHelper(this, null)
+                val db = DBHelper(requireContext(), null)
                 db.addUser(user)
 
                 Toast.makeText(
-                    this,
+                    requireContext(),
                     "Зарегистрирован новый пользователь: $login",
                     Toast.LENGTH_SHORT
                 ).show()
 
+                (activity as? MainActivity)?.navigateToSignInFragment()
+
                 loginEditText.text.clear()
                 emailEditText.text.clear()
                 passEditText.text.clear()
-
-                intent = Intent(this, SignInActivity::class.java).apply {
-                    putExtra("login", login)
-                    putExtra("email", email)
-                    putExtra("pass", pass)
-
-                    putExtra("user", user)
-                }
-                startActivity(intent)
-                finish()
-
             }
         }
     }
