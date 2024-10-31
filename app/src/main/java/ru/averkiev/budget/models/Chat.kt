@@ -1,4 +1,4 @@
-package ru.averkiev.budget.model
+package ru.averkiev.budget.models
 
 data class Chat(
     val senderName: String,

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.averkiev.budget.R
-import ru.averkiev.budget.model.Chat
+import ru.averkiev.budget.models.Chat
 import ru.averkiev.budget.utils.ChatAdapter
 
 class HomeActivity : AppCompatActivity() {

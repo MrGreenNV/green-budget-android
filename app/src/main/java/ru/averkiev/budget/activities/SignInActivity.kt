@@ -10,7 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ru.averkiev.budget.R
-import ru.averkiev.budget.model.User
+import ru.averkiev.budget.models.User
 import ru.averkiev.budget.utils.DBHelper
 
 class SignInActivity : AppCompatActivity() {

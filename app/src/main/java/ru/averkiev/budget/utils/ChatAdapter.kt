@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.averkiev.budget.R
-import ru.averkiev.budget.model.Chat
+import ru.averkiev.budget.models.Chat
 
 class ChatAdapter(private val chatList: List<Chat>) :
     RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {

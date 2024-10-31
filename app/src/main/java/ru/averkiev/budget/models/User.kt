@@ -1,4 +1,4 @@
-package ru.averkiev.budget.model
+package ru.averkiev.budget.models
 
 import java.io.Serializable
 
