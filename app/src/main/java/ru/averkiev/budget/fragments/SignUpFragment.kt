@@ -13,11 +13,8 @@ import ru.averkiev.budget.R
 import ru.averkiev.budget.activities.MainActivity
 import ru.averkiev.budget.models.User
 import ru.averkiev.budget.utils.DBHelper
-import ru.averkiev.budget.utils.MyViewModel
 
 class SignUpFragment : Fragment() {
-
-    private lateinit var viewModel: MyViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +33,7 @@ class SignUpFragment : Fragment() {
         val passEditText: EditText = view.findViewById(R.id.user_pass)
 
         btnBack.setOnClickListener {
-            (activity as? MainActivity)?.navigateToSignInFragment()
+//            (activity as? MainActivity)?.navigateToSignInFragment()
         }
 
         btnReg.setOnClickListener {
@@ -62,8 +59,6 @@ class SignUpFragment : Fragment() {
 
                 val user = User(login, email, pass)
                 val db = DBHelper(requireContext(), null)
-                viewModel = ViewModelProvider(requireActivity())[MyViewModel::class.java]
-                viewModel.userData.value = user
                 db.addUser(user)
 
                 Toast.makeText(
@@ -72,7 +67,7 @@ class SignUpFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-                (activity as? MainActivity)?.navigateToSignInFragment()
+//                (activity as? MainActivity)?.navigateToSignInFragment()
 
                 loginEditText.text.clear()
                 emailEditText.text.clear()

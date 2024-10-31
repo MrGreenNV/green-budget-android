@@ -9,24 +9,27 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import ru.averkiev.budget.R
-import ru.averkiev.budget.activities.MainActivity
+import ru.averkiev.budget.databinding.FragmentSignInBinding
 import ru.averkiev.budget.utils.DBHelper
-import ru.averkiev.budget.utils.MyViewModel
 
 class SignInFragment : Fragment() {
+
+    private var _binding: FragmentSignInBinding? = null
+    private val binding get() = _binding!!
+    private val args: SignInFragmentArgs by navArgs()
 
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
     private lateinit var login: String
-    private lateinit var viewModel: MyViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_sign_in, container, false)
+    ): View {
+        _binding = FragmentSignInBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,26 +38,14 @@ class SignInFragment : Fragment() {
         etEmail = view.findViewById(R.id.etEmail)
         etPassword = view.findViewById(R.id.etPassword)
         val tvError: TextView = view.findViewById(R.id.tvError)
-        val btnSignIn: Button = view.findViewById(R.id.btnSignIn)
-        val tvSignUp: TextView = view.findViewById(R.id.tvSignUp)
 
-        viewModel = ViewModelProvider(requireActivity())[MyViewModel::class.java]
+        val user = args.user
+        user?.let {
+            binding.etEmail.setText(it.email)
+            binding.etPassword.setText(it.pass)
+        }
 
-        if (viewModel.userData.value != null) {
-
-            viewModel.userData.observe(viewLifecycleOwner) { user ->
-                etEmail.setText(user.email)
-                etPassword.setText(user.pass)
-                login = user.login
-            }
-        } else if (viewModel.loginName.value != null) {
-            viewModel.loginName.observe(viewLifecycleOwner) { loginName ->
-                login = loginName
-            }
-        } else
-            login = "???"
-
-        btnSignIn.setOnClickListener {
+        binding.btnSignIn.setOnClickListener {
             val emailInput = etEmail.text.toString().trim()
             val passwordInput = etPassword.text.toString().trim()
 
@@ -79,9 +70,7 @@ class SignInFragment : Fragment() {
                     if (login == "???")
                         login = emailInput.substring(0, emailInput.indexOf("@"))
 
-                    viewModel.loginName.value = login
-
-                    (activity as? MainActivity)?.navigateToHomeFragment()
+//                    (activity as? MainActivity)?.navigateToHomeFragment()
                 } else {
                     tvError.text = "Ошибка: невалидные данные для входа"
                     tvError.visibility = View.VISIBLE
@@ -92,8 +81,8 @@ class SignInFragment : Fragment() {
             }
         }
 
-        tvSignUp.setOnClickListener {
-            (activity as? MainActivity)?.navigateToSignUpFragment()
+        binding.tvSignUp.setOnClickListener {
+//            (activity as? MainActivity)?.navigateToSignUpFragment()
         }
 
     }

@@ -12,12 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.averkiev.budget.R
 import ru.averkiev.budget.models.Chat
 import ru.averkiev.budget.utils.ChatAdapter
-import ru.averkiev.budget.utils.MyViewModel
 
 
 class HomeFragment : Fragment() {
 
-    private lateinit var viewModel: MyViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,10 +31,6 @@ class HomeFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewChats)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel = ViewModelProvider(requireActivity())[MyViewModel::class.java]
-        viewModel.loginName.observe(viewLifecycleOwner) { loginName ->
-            loginTextView.text = loginName
-        }
 
         val chatList = listOf(
             Chat("Тони", R.drawable.profile_1, "Привет, когда рожать собираетесь?", "12:00"),
