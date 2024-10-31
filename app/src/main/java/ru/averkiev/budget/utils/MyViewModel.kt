@@ -6,4 +6,5 @@ import ru.averkiev.budget.models.User
 
 class MyViewModel : ViewModel() {
     val userData = MutableLiveData<User>()
+    val loginName = MutableLiveData<String>()
 }

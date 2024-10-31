@@ -9,13 +9,18 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import ru.averkiev.budget.R
 import ru.averkiev.budget.activities.MainActivity
 import ru.averkiev.budget.utils.DBHelper
+import ru.averkiev.budget.utils.MyViewModel
 
 class SignInFragment : Fragment() {
 
+    private lateinit var etEmail: EditText
+    private lateinit var etPassword: EditText
     private lateinit var login: String
+    private lateinit var viewModel: MyViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,11 +32,27 @@ class SignInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val etEmail: EditText = view.findViewById(R.id.etEmail)
-        val etPassword: EditText = view.findViewById(R.id.etPassword)
+        etEmail = view.findViewById(R.id.etEmail)
+        etPassword = view.findViewById(R.id.etPassword)
         val tvError: TextView = view.findViewById(R.id.tvError)
         val btnSignIn: Button = view.findViewById(R.id.btnSignIn)
         val tvSignUp: TextView = view.findViewById(R.id.tvSignUp)
+
+        viewModel = ViewModelProvider(requireActivity())[MyViewModel::class.java]
+
+        if (viewModel.userData.value != null) {
+
+            viewModel.userData.observe(viewLifecycleOwner) { user ->
+                etEmail.setText(user.email)
+                etPassword.setText(user.pass)
+                login = user.login
+            }
+        } else if (viewModel.loginName.value != null) {
+            viewModel.loginName.observe(viewLifecycleOwner) { loginName ->
+                login = loginName
+            }
+        } else
+            login = "???"
 
         btnSignIn.setOnClickListener {
             val emailInput = etEmail.text.toString().trim()
@@ -55,7 +76,10 @@ class SignInFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    login = emailInput.substring(0, emailInput.indexOf("@"))
+                    if (login == "???")
+                        login = emailInput.substring(0, emailInput.indexOf("@"))
+
+                    viewModel.loginName.value = login
 
                     (activity as? MainActivity)?.navigateToHomeFragment()
                 } else {
