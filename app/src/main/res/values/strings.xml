@@ -11,4 +11,8 @@
     <string name="sign_in">Войти</string>
     <string name="reg_in">Еще нет аккаунта? Зарегистрироваться</string>
     <string name="in_develop">В разработке</string>
+    <string name="profile">Профиль</string>
+    <string name="name_sender">Имя отправителя</string>
+    <string name="last_msg">Последнее сообщение</string>
+    <string name="template_time">12:00</string>
 </resources>
