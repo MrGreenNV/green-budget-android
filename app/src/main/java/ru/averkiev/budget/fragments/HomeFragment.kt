@@ -7,21 +7,29 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.averkiev.budget.R
+import ru.averkiev.budget.databinding.FragmentHomeBinding
+import ru.averkiev.budget.databinding.FragmentSignInBinding
+import ru.averkiev.budget.databinding.FragmentSignUpBinding
 import ru.averkiev.budget.models.Chat
 import ru.averkiev.budget.utils.ChatAdapter
 
 
 class HomeFragment : Fragment() {
 
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+    private val args: HomeFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,6 +39,7 @@ class HomeFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewChats)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        loginTextView.text = args.login
 
         val chatList = listOf(
             Chat("Тони", R.drawable.profile_1, "Привет, когда рожать собираетесь?", "12:00"),

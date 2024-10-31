@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.averkiev.budget.R
 import ru.averkiev.budget.databinding.FragmentSignInBinding
@@ -45,6 +45,11 @@ class SignInFragment : Fragment() {
             binding.etPassword.setText(it.pass)
         }
 
+        if (user != null)
+            login = user.login
+        else
+            login = "???"
+
         binding.btnSignIn.setOnClickListener {
             val emailInput = etEmail.text.toString().trim()
             val passwordInput = etPassword.text.toString().trim()
@@ -70,7 +75,9 @@ class SignInFragment : Fragment() {
                     if (login == "???")
                         login = emailInput.substring(0, emailInput.indexOf("@"))
 
-//                    (activity as? MainActivity)?.navigateToHomeFragment()
+                    val action = SignInFragmentDirections.actionSignInFragmentToHomeFragment(login)
+                    findNavController().navigate(action)
+
                 } else {
                     tvError.text = "Ошибка: невалидные данные для входа"
                     tvError.visibility = View.VISIBLE
@@ -82,7 +89,7 @@ class SignInFragment : Fragment() {
         }
 
         binding.tvSignUp.setOnClickListener {
-//            (activity as? MainActivity)?.navigateToSignUpFragment()
+            findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)
         }
 
     }

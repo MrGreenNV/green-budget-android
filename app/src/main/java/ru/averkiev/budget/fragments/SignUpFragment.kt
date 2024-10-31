@@ -9,34 +9,38 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import ru.averkiev.budget.R
 import ru.averkiev.budget.activities.MainActivity
+import ru.averkiev.budget.databinding.FragmentSignUpBinding
 import ru.averkiev.budget.models.User
 import ru.averkiev.budget.utils.DBHelper
 
 class SignUpFragment : Fragment() {
 
+    private var _binding: FragmentSignUpBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_sign_up, container, false)
+    ): View {
+        _binding = FragmentSignUpBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val btnBack: Button = view.findViewById(R.id.btnBack)
-        val btnReg: Button = view.findViewById(R.id.button_reg)
         val loginEditText: EditText = view.findViewById(R.id.user_login)
         val emailEditText: EditText = view.findViewById(R.id.user_email)
         val passEditText: EditText = view.findViewById(R.id.user_pass)
 
-        btnBack.setOnClickListener {
-//            (activity as? MainActivity)?.navigateToSignInFragment()
+        binding.btnBack.setOnClickListener {
+            findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
         }
 
-        btnReg.setOnClickListener {
+        binding.buttonReg.setOnClickListener {
             val login = loginEditText.text.toString().trim()
             val email = emailEditText.text.toString().trim()
             val pass = passEditText.text.toString().trim()
@@ -67,7 +71,8 @@ class SignUpFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-//                (activity as? MainActivity)?.navigateToSignInFragment()
+                val action = SignUpFragmentDirections.actionSignUpFragmentToSignInFragment(user)
+                findNavController().navigate(action)
 
                 loginEditText.text.clear()
                 emailEditText.text.clear()
