@@ -15,4 +15,11 @@
     <string name="name_sender">Имя отправителя</string>
     <string name="last_msg">Последнее сообщение</string>
     <string name="template_time">12:00</string>
+    <string name="sign_up">Регистрация</string>
+    <string name="input_login">Введите логин</string>
+    <string name="in_email">Введите email</string>
+    <string name="in_pass">Введите пароль</string>
+    <string name="do_sign_up">Зарегистрироваться</string>
+    <string name="chats">Чаты</string>
+    <string name="log">Login</string>
 </resources>

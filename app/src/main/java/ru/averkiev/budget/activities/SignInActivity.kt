@@ -7,17 +7,19 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ru.averkiev.budget.R
+import ru.averkiev.budget.model.User
+import ru.averkiev.budget.utils.DBHelper
 
 class SignInActivity : AppCompatActivity() {
+
+    private lateinit var login: String
 
     companion object {
         const val TAG_NAME = "SignInActivity"
     }
-
-    private val validEmail = "user@mail.ru"
-    private val validPassword = "password"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,16 +31,44 @@ class SignInActivity : AppCompatActivity() {
         val tvError: TextView = findViewById(R.id.tvError)
         val btnSignIn: Button = findViewById(R.id.btnSignIn)
         val tvSignUp: TextView = findViewById(R.id.tvSignUp)
+        val user: User? = intent.getSerializableExtra("user", User::class.java)
+
+        if (user != null) {
+            etEmail.setText(user.email)
+            etPassword.setText(user.pass)
+            login = user.login
+        }
 
         btnSignIn.setOnClickListener {
             val emailInput = etEmail.text.toString().trim()
             val passwordInput = etPassword.text.toString().trim()
 
+            if (emailInput.isEmpty() || passwordInput.isEmpty())
+                Toast.makeText(
+                    this,
+                    "Поля не должны быть пустыми!",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            val db = DBHelper(this, null)
+            val isAuth = db.existUser(emailInput, passwordInput)
+
             if (isValidEmail(emailInput) && isValidPassword(passwordInput)) {
-                if (emailInput == validEmail && passwordInput == validPassword) {
-                    val intent = Intent(this, HomeActivity::class.java)
+                if (isAuth) {
+                    Toast.makeText(
+                        this,
+                        "Пользователь авторизован",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    if (user == null) {
+                        login = emailInput.substring(0, emailInput.indexOf("@"))
+                    }
+
+                    val intent = Intent(this, HomeActivity::class.java).apply {
+                        putExtra("loginName", login)
+                    }
                     startActivity(intent)
-                    finish()
                 } else {
                     tvError.text = "Ошибка: невалидные данные для входа"
                     tvError.visibility = View.VISIBLE

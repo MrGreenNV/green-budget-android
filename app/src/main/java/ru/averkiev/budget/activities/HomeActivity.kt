@@ -2,6 +2,7 @@ package ru.averkiev.budget.activities
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +22,10 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewChats)
+        val loginTextView: TextView = findViewById(R.id.logName)
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        loginTextView.text = intent.getStringExtra("loginName") ?: "???"
 
         val chatList = listOf(
             Chat("Тони", R.drawable.profile_1, "Привет, когда рожать собираетесь?", "12:00"),
