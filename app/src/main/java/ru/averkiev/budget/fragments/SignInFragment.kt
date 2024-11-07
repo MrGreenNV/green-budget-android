@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -20,8 +19,6 @@ class SignInFragment : Fragment() {
     private val binding get() = _binding ?: throw Exception()
     private val args: SignInFragmentArgs by navArgs()
 
-    private lateinit var etEmail: EditText
-    private lateinit var etPassword: EditText
     private lateinit var login: String
 
     override fun onCreateView(
@@ -35,8 +32,6 @@ class SignInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        etEmail = view.findViewById(R.id.etEmail)
-        etPassword = view.findViewById(R.id.etPassword)
         val tvError: TextView = view.findViewById(R.id.tvError)
 
         val user = args.user
@@ -51,8 +46,8 @@ class SignInFragment : Fragment() {
             login = "???"
 
         binding.btnSignIn.setOnClickListener {
-            val emailInput = etEmail.text.toString().trim()
-            val passwordInput = etPassword.text.toString().trim()
+            val emailInput = binding.etEmail.text.toString().trim()
+            val passwordInput = binding.etPassword.text.toString().trim()
 
             if (emailInput.isEmpty() || passwordInput.isEmpty())
                 Toast.makeText(

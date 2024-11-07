@@ -4,14 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.averkiev.budget.R
-import ru.averkiev.budget.activities.MainActivity
 import ru.averkiev.budget.databinding.FragmentSignUpBinding
 import ru.averkiev.budget.models.User
 import ru.averkiev.budget.utils.DBHelper
@@ -32,18 +28,14 @@ class SignUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val loginEditText: EditText = view.findViewById(R.id.user_login)
-        val emailEditText: EditText = view.findViewById(R.id.user_email)
-        val passEditText: EditText = view.findViewById(R.id.user_pass)
-
         binding.btnBack.setOnClickListener {
             findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
         }
 
         binding.buttonReg.setOnClickListener {
-            val login = loginEditText.text.toString().trim()
-            val email = emailEditText.text.toString().trim()
-            val pass = passEditText.text.toString().trim()
+            val login = binding.userLogin.text.toString().trim()
+            val email = binding.userEmail.text.toString().trim()
+            val pass = binding.userPass.text.toString().trim()
 
             if (login.isEmpty() || email.isEmpty() || pass.isEmpty())
 
@@ -74,9 +66,9 @@ class SignUpFragment : Fragment() {
                 val action = SignUpFragmentDirections.actionSignUpFragmentToSignInFragment(user)
                 findNavController().navigate(action)
 
-                loginEditText.text.clear()
-                emailEditText.text.clear()
-                passEditText.text.clear()
+                binding.userLogin.text.clear()
+                binding.userEmail.text.clear()
+                binding.userPass.text.clear()
             }
         }
     }

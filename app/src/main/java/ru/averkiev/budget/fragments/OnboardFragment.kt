@@ -45,23 +45,19 @@ class OnboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val onboardImage: ImageView = view.findViewById(R.id.onboardImage)
-        val onboardTitle: TextView = view.findViewById(R.id.onboardTitle)
-        val onboardSubtitle: TextView = view.findViewById(R.id.onboardSubtitle)
-
-        updateContent(onboardImage, onboardTitle, onboardSubtitle)
+        updateContent(binding.onboardImage, binding.onboardTitle, binding.onboardSubtitle)
 
         binding.btnPrev.setOnClickListener {
             if (currentIndex > 0) {
                 currentIndex--
-                updateContent(onboardImage, onboardTitle, onboardSubtitle)
+                updateContent(binding.onboardImage, binding.onboardTitle, binding.onboardSubtitle)
             }
         }
 
         binding.btnNext.setOnClickListener {
             if (currentIndex < titles.size - 1) {
                 currentIndex++
-                updateContent(onboardImage, onboardTitle, onboardSubtitle)
+                updateContent(binding.onboardImage, binding.onboardTitle, binding.onboardSubtitle)
             } else {
                 findNavController().navigate(R.id.action_onboardFragment_to_signInFragment)
             }
