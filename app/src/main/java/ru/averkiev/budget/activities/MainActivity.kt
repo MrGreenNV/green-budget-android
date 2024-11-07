@@ -14,8 +14,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (savedInstanceState == null)
-            replaceFragment(OnboardFragment())
+        if (savedInstanceState == null) {
+            navigateToOnboardFragment()
+        }
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -25,15 +26,44 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    fun navigateToSignInFragment() {
-        replaceFragment(SignInFragment())
+    fun navigateToOnboardFragment() {
+        val onboardFragment = OnboardFragment()
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, onboardFragment)
+            .commit()
     }
 
-    fun navigateToHomeFragment() {
-        replaceFragment(HomeFragment())
+    fun navigateToSignInFragment(bundle: Bundle? = null) {
+        val signInFragment = SignInFragment()
+
+        if (bundle != null) {
+            signInFragment.arguments = bundle
+        }
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, signInFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    fun navigateToHomeFragment(bundle: Bundle? = null) {
+        val homeFragment = HomeFragment()
+
+        if (bundle != null)
+            homeFragment.arguments = bundle
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, homeFragment)
+            .commit()
     }
 
     fun navigateToSignUpFragment() {
-        replaceFragment(SignUpFragment())
+        val signUpFragment = SignUpFragment()
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, signUpFragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

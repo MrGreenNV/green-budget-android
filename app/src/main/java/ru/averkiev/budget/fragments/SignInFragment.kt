@@ -9,18 +9,16 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import ru.averkiev.budget.R
 import ru.averkiev.budget.activities.MainActivity
+import ru.averkiev.budget.models.User
 import ru.averkiev.budget.utils.DBHelper
-import ru.averkiev.budget.utils.MyViewModel
 
 class SignInFragment : Fragment() {
 
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
     private lateinit var login: String
-    private lateinit var viewModel: MyViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,21 +36,12 @@ class SignInFragment : Fragment() {
         val btnSignIn: Button = view.findViewById(R.id.btnSignIn)
         val tvSignUp: TextView = view.findViewById(R.id.tvSignUp)
 
-        viewModel = ViewModelProvider(requireActivity())[MyViewModel::class.java]
-
-        if (viewModel.userData.value != null) {
-
-            viewModel.userData.observe(viewLifecycleOwner) { user ->
-                etEmail.setText(user.email)
-                etPassword.setText(user.pass)
-                login = user.login
-            }
-        } else if (viewModel.loginName.value != null) {
-            viewModel.loginName.observe(viewLifecycleOwner) { loginName ->
-                login = loginName
-            }
-        } else
-            login = "???"
+        val user = arguments?.getSerializable("user") as? User
+        user?.let {
+            etEmail.setText(user.email)
+            etPassword.setText(user.pass)
+            login = user.login
+        }
 
         btnSignIn.setOnClickListener {
             val emailInput = etEmail.text.toString().trim()
@@ -79,9 +68,19 @@ class SignInFragment : Fragment() {
                     if (login == "???")
                         login = emailInput.substring(0, emailInput.indexOf("@"))
 
-                    viewModel.loginName.value = login
+                    val bundle = Bundle()
+                    if (user == null) {
+                        val user1 = User(emailInput.substring(0, emailInput.indexOf("@")), "", "")
+                        bundle.apply {
+                            putSerializable("user", user1)
+                        }
+                    } else {
+                        bundle.apply {
+                            putSerializable("user", user)
+                        }
+                    }
 
-                    (activity as? MainActivity)?.navigateToHomeFragment()
+                    (activity as? MainActivity)?.navigateToHomeFragment(bundle)
                 } else {
                     tvError.text = "Ошибка: невалидные данные для входа"
                     tvError.visibility = View.VISIBLE

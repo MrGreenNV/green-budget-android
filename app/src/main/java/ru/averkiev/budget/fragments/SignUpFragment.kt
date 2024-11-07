@@ -8,16 +8,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import ru.averkiev.budget.R
 import ru.averkiev.budget.activities.MainActivity
 import ru.averkiev.budget.models.User
 import ru.averkiev.budget.utils.DBHelper
-import ru.averkiev.budget.utils.MyViewModel
 
 class SignUpFragment : Fragment() {
-
-    private lateinit var viewModel: MyViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,9 +58,14 @@ class SignUpFragment : Fragment() {
 
                 val user = User(login, email, pass)
                 val db = DBHelper(requireContext(), null)
-                viewModel = ViewModelProvider(requireActivity())[MyViewModel::class.java]
-                viewModel.userData.value = user
                 db.addUser(user)
+
+                val bundle = Bundle().apply {
+                    putSerializable("user", user)
+                }
+
+                val signInFragment = SignInFragment()
+                signInFragment.arguments = bundle
 
                 Toast.makeText(
                     requireContext(),
@@ -72,7 +73,7 @@ class SignUpFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-                (activity as? MainActivity)?.navigateToSignInFragment()
+                (activity as? MainActivity)?.navigateToSignInFragment(bundle)
 
                 loginEditText.text.clear()
                 emailEditText.text.clear()
