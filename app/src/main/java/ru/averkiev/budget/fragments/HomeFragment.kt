@@ -21,7 +21,7 @@ import ru.averkiev.budget.utils.ChatAdapter
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding ?: throw Exception()
     private val args: HomeFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -35,11 +35,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val loginTextView: TextView = view.findViewById(R.id.logName)
-        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewChats)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewChats.layoutManager = LinearLayoutManager(requireContext())
 
-        loginTextView.text = args.login
+        binding.logName.text = args.login
 
         val chatList = listOf(
             Chat("Тони", R.drawable.profile_1, "Привет, когда рожать собираетесь?", "12:00"),
@@ -48,6 +46,6 @@ class HomeFragment : Fragment() {
             Chat("Маша", R.drawable.profile_4, "Маш, ты утюг выключила?", "12:30")
         )
 
-        recyclerView.adapter = ChatAdapter(chatList)
+        binding.recyclerViewChats.adapter = ChatAdapter(chatList)
     }
 }

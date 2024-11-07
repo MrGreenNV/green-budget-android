@@ -19,7 +19,7 @@ import ru.averkiev.budget.utils.DBHelper
 class SignUpFragment : Fragment() {
 
     private var _binding: FragmentSignUpBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding ?: throw Exception()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -17,7 +17,7 @@ import ru.averkiev.budget.utils.DBHelper
 class SignInFragment : Fragment() {
 
     private var _binding: FragmentSignInBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding ?: throw Exception()
     private val args: SignInFragmentArgs by navArgs()
 
     private lateinit var etEmail: EditText

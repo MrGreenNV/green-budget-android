@@ -14,7 +14,7 @@ import ru.averkiev.budget.databinding.FragmentOnboardBinding
 class OnboardFragment : Fragment() {
 
     private var _binding: FragmentOnboardBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding ?: throw Exception()
 
     private val images = arrayOf(
         R.drawable.onboard_image_1,
