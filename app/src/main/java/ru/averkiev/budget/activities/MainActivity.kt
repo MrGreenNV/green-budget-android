@@ -21,9 +21,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        val toolbar: Toolbar = findViewById(R.id.toolbar)
-//        setSupportActionBar(toolbar)
-
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
@@ -39,11 +36,15 @@ class MainActivity : AppCompatActivity() {
         navController.navigate(R.id.action_signUpFragment_to_signInFragment)
     }
 
-    fun navigateToHome() {
-        navController.navigate(R.id.action_signInFragment_to_homeFragment)
-    }
+//    fun navigateToHome() {
+//        navController.navigate(R.id.action_signInFragment_to_homeFragment)
+//    }
 
     fun navigateToSignUp() {
         navController.navigate(R.id.action_signInFragment_to_signUpFragment)
+    }
+
+    fun navigateToCharacters() {
+        navController.navigate(R.id.action_signInFragment_to_characterFragment)
     }
 }

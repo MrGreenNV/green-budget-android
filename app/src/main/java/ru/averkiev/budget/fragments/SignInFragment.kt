@@ -70,7 +70,8 @@ class SignInFragment : Fragment() {
                     if (login == "???")
                         login = emailInput.substring(0, emailInput.indexOf("@"))
 
-                    val action = SignInFragmentDirections.actionSignInFragmentToHomeFragment(login)
+//                    val action = SignInFragmentDirections.actionSignInFragmentToHomeFragment(login)
+                    val action = SignInFragmentDirections.actionSignInFragmentToCharacterFragment(login)
                     findNavController().navigate(action)
 
                 } else {
