@@ -17,11 +17,11 @@ import io.ktor.http.ContentType
 import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
 import io.ktor.http.path
-import ru.averkiev.budget.models.Character
+import ru.averkiev.budget.models.CharacterResponse
 import kotlin.time.Duration.Companion.seconds
 
 interface KtorApi {
-    suspend fun getCharacters(pageSize: Int, page: Int): List<Character>
+    suspend fun getCharacters(pageSize: Int, page: Int): List<CharacterResponse>
 }
 
 class KtorNetwork:  KtorApi {
@@ -49,7 +49,7 @@ class KtorNetwork:  KtorApi {
         }
     }
 
-    override suspend fun getCharacters(pageSize: Int, page: Int): List<Character> {
+    override suspend fun getCharacters(pageSize: Int, page: Int): List<CharacterResponse> {
         val response = try {
             client.get {
                 url {
@@ -60,7 +60,7 @@ class KtorNetwork:  KtorApi {
                     parameters.append("page", "$page")
                     parameters.append("pageSize", "$pageSize")
                 }
-            }.body<List<Character>>()
+            }.body<List<CharacterResponse>>()
         } catch (ex: Exception) {
             Log.e("KtorNetwork", "Error fetching characters: ${ex.message}")
             emptyList()

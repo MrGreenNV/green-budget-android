@@ -77,6 +77,9 @@ dependencies {
     implementation(libs.ktor.client.okhttp)
     implementation(libs.ktor.ktor.client.logging)
     implementation(libs.kotlinx.serialization.json.v163)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.preference.ktx)
+    implementation(libs.kotlinx.coroutines.android)
 
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.navigation.compose)

@@ -1,24 +1,23 @@
 package ru.averkiev.budget.utils
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.averkiev.budget.databinding.ItemCharacterBinding
-import ru.averkiev.budget.models.Character
+import ru.averkiev.budget.models.CharacterResponse
 
-class CharacterAdapter(private val characters: List<Character>) :
+class CharacterAdapter(private val characterResponses: List<CharacterResponse>) :
     RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
         inner class CharacterViewHolder(private val binding: ItemCharacterBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            fun bind(character: Character) {
-                "name: ${if (character.name.isNullOrEmpty()) "Unknown" else character.name}".also { binding.tvName.text = it }
-                "culture: ${if (character.culture.isNullOrEmpty()) "Unknown" else character.culture}".also { binding.tvCulture.text = it }
-                "born: ${if (character.born.isNullOrEmpty()) "Unknown" else character.born}".also { binding.tvBorn.text = it }
-                "titles: ${if (character.titles.isNullOrEmpty()) "None" else character.titles.joinToString(", ")}".also { binding.tvTitles.text = it }
-                "aliases: ${if (character.aliases.isNullOrEmpty()) "None" else character.aliases.joinToString(", ")}".also { binding.tvAliases.text = it }
-                "playedBy: ${if (character.playedBy.isNullOrEmpty()) "None" else character.playedBy.joinToString(", ")}".also { binding.tvPlayedBy.text = it }
+            fun bind(characterResponse: CharacterResponse) {
+                "name: ${if (characterResponse.name.isNullOrEmpty()) "Unknown" else characterResponse.name}".also { binding.tvName.text = it }
+                "culture: ${if (characterResponse.culture.isNullOrEmpty()) "Unknown" else characterResponse.culture}".also { binding.tvCulture.text = it }
+                "born: ${if (characterResponse.born.isNullOrEmpty()) "Unknown" else characterResponse.born}".also { binding.tvBorn.text = it }
+                "titles: ${if (characterResponse.titles.isNullOrEmpty()) "None" else characterResponse.titles.joinToString(", ")}".also { binding.tvTitles.text = it }
+                "aliases: ${if (characterResponse.aliases.isNullOrEmpty()) "None" else characterResponse.aliases.joinToString(", ")}".also { binding.tvAliases.text = it }
+                "playedBy: ${if (characterResponse.playedBy.isNullOrEmpty()) "None" else characterResponse.playedBy.joinToString(", ")}".also { binding.tvPlayedBy.text = it }
             }
         }
 
@@ -32,10 +31,10 @@ class CharacterAdapter(private val characters: List<Character>) :
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        holder.bind(characters[position])
+        holder.bind(characterResponses[position])
     }
 
     override fun getItemCount(): Int {
-        return characters.size
+        return characterResponses.size
     }
 }

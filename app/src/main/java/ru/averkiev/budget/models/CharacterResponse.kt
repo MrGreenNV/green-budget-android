@@ -3,7 +3,7 @@ package ru.averkiev.budget.models
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Character (
+data class CharacterResponse (
     val name: String?,
     val gender: String?,
     val culture: String?,

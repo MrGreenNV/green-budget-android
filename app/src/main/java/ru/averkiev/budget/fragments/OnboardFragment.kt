@@ -62,11 +62,20 @@ class OnboardFragment : Fragment() {
                 findNavController().navigate(R.id.action_onboardFragment_to_signInFragment)
             }
         }
+
+        binding.btnSettings.setOnClickListener {
+            findNavController().navigate(R.id.action_signInFragment_to_settingsFragment)
+        }
     }
 
     private fun updateContent(imageView: ImageView, titleView: TextView, subtitleView: TextView) {
         imageView.setImageResource(images[currentIndex])
         titleView.text = titles[currentIndex]
         subtitleView.text = subtitles[currentIndex]
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

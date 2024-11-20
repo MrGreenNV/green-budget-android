@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="Theme.Budget" parent="Theme.Material3.DayNight">
-<!--        <item name="windowActionBar">false</item>-->
-<!--        <item name="windowNoTitle">true</item>-->
-    </style>
+    <style name="Theme.Budget" parent="Theme.Material3.DayNight"/>
 </resources>
