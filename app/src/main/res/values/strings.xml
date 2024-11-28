@@ -38,4 +38,7 @@
     <string name="delete_file">Удалить файл</string>
     <string name="not_cp">Резервной копии нет</string>
     <string name="backup_file">Восстановить файл</string>
+    <string name="update_data">Обновить данные</string>
+    <string name="next_page">Next Page</string>
+    <string name="previous_page">Previous Page</string>
 </resources>
